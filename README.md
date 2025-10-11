@@ -56,6 +56,52 @@ python normalize_parks_json.py --help
 pip install pandas numpy
 ```
 
+### test_chat_assistant.py
+
+Tests a chat assistant API by sending questions from a text file and recording responses with retrieval metrics.
+
+**Features:**
+- Creates a new session for each question (avoids chat history bias)
+- Parses streaming SSE responses
+- Extracts reference chunks with similarity scores
+- Records results in CSV format for analysis
+
+**Usage:**
+```bash
+# Test with questions file
+python test_chat_assistant.py questions.txt
+
+# Specify output file
+python test_chat_assistant.py questions.txt -o results.csv
+
+# Add delay between requests (rate limiting)
+python test_chat_assistant.py questions.txt -d 2.0
+```
+
+**Input Format:**
+- Text file with one question per line
+
+**Output CSV Columns:**
+- `question`: The question asked
+- `answer`: Complete answer from the assistant
+- `status_code`: HTTP status code
+- `session_id`: Session identifier
+- `total_references`: Number of reference chunks retrieved
+- `chunk_ids`: Comma-separated chunk IDs
+- `document_names`: Comma-separated document names
+- `similarities`: Overall similarity scores
+- `vector_similarities`: Vector similarity scores
+- `term_similarities`: Term similarity scores
+
+**Dependencies:**
+- requests
+
+## Installation
+
+```bash
+pip install pandas numpy requests
+```
+
 ## Contributing
 
 When adding new scripts:

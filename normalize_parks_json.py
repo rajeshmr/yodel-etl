@@ -202,7 +202,7 @@ for col in combined_df.columns:
 # Create metadata.features column with comma-separated list of "Yes" flags
 def get_active_features(row):
     """Returns comma-separated list of column names where value is 'Yes'."""
-    active = [col for col in flag_columns if row.get(col) == "Yes"]
+    active = [col.replace("_", " ") for col in flag_columns if row.get(col) == "Yes"]
     return ", ".join(active) if active else ""
 
 combined_df["metadata.features"] = combined_df.apply(get_active_features, axis=1)
