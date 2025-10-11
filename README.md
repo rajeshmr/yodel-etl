@@ -19,12 +19,22 @@ Processes JSON files containing park data and normalizes them into a structured 
 
 **Usage:**
 ```bash
+# Process JSON files in current directory
 python normalize_parks_json.py
+
+# Specify input directory
+python normalize_parks_json.py --input-dir ~/data/yodel/parks_normalized
+
+# Specify both input directory and output file
+python normalize_parks_json.py -i ~/data/yodel/parks_normalized -o parks_clean.csv
+
+# Show help
+python normalize_parks_json.py --help
 ```
 
-**Configuration:**
-- `INPUT_DIR`: Directory containing JSON files (default: current directory)
-- `OUTPUT_FILE`: Output CSV filename (default: `normalized_parks_output.csv`)
+**Parameters:**
+- `--input-dir, -i`: Directory containing JSON files (default: current directory)
+- `--output, -o`: Output CSV filename (default: `normalized_parks_output.csv`)
 
 **Input Format:**
 - JSON files with park data containing fields like `facilities`, `restrictions`, `accessibility`, and `activities`

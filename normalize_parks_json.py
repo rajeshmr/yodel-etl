@@ -1,17 +1,37 @@
 import os
+import sys
 import json
 import pandas as pd
 import numpy as np
 from pandas import json_normalize
 import re
+import argparse
 
 # ---------------------------------------------------------------------
 # CONFIGURATION
 # ---------------------------------------------------------------------
 
-# Directory of JSON files
-INPUT_DIR = "."
-OUTPUT_FILE = "normalized_parks_output.csv"
+# Parse command-line arguments
+parser = argparse.ArgumentParser(
+    description="Normalize JSON park data files into a structured CSV."
+)
+parser.add_argument(
+    "--input-dir",
+    "-i",
+    default=".",
+    help="Directory containing JSON files (default: current directory)"
+)
+parser.add_argument(
+    "--output",
+    "-o",
+    default="normalized_parks_output.csv",
+    help="Output CSV filename (default: normalized_parks_output.csv)"
+)
+args = parser.parse_args()
+
+# Expand user path (e.g., ~/) and resolve to absolute path
+INPUT_DIR = os.path.expanduser(args.input_dir)
+OUTPUT_FILE = args.output
 
 # ---------------------------------------------------------------------
 # HELPER FUNCTIONS
