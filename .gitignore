@@ -144,6 +144,7 @@ cython_debug/
 .DS_Store
 
 # Data files (output from scripts)
+*.txt
 *.csv
 *.xlsx
 *.xls

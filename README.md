@@ -44,6 +44,7 @@ python normalize_parks_json.py --help
 - CSV file with normalized columns for each feature
 - Tristate values (Yes/No/Don't Know) for identified features
 - Text fields for unmatched features
+- `metadata.features` column: comma-separated list of all flag column names with "Yes" values (useful for debugging and verification)
 
 **Dependencies:**
 - pandas

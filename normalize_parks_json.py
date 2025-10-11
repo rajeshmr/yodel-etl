@@ -186,6 +186,28 @@ combined_df = apply_map(
 combined_df = apply_map(combined_df, "activities", activities_map, "other_activities")
 
 # ---------------------------------------------------------------------
+# CREATE METADATA.FEATURES COLUMN
+# ---------------------------------------------------------------------
+
+# Collect all boolean flag columns (those with Yes/No/Don't Know values)
+flag_columns = []
+for col in combined_df.columns:
+    if any(col.startswith(prefix) for prefix in ["has_", "no_", "accessible_", "dogs_", "service_", "carry_"]):
+        flag_columns.append(col)
+    elif col in ["hiking", "biking", "camping", "fishing", "boating", "swimming", 
+                 "picnicking", "hunting", "horseback_riding", "wildlife_watching", 
+                 "winter_sports", "rock_climbing", "educational_programs", "events"]:
+        flag_columns.append(col)
+
+# Create metadata.features column with comma-separated list of "Yes" flags
+def get_active_features(row):
+    """Returns comma-separated list of column names where value is 'Yes'."""
+    active = [col for col in flag_columns if row.get(col) == "Yes"]
+    return ", ".join(active) if active else ""
+
+combined_df["metadata.features"] = combined_df.apply(get_active_features, axis=1)
+
+# ---------------------------------------------------------------------
 # OUTPUT
 # ---------------------------------------------------------------------
 
